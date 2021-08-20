@@ -1,4 +1,12 @@
 #include "car.h"
+#include "tf2/LinearMath/Matrix3x3.h"
+#include <geometry_msgs/msg/pose2_d.hpp>
+#include <tf2/LinearMath/Quaternion.h>
+#include <Eigen/Geometry>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
+#include <tf2_eigen/tf2_eigen.h>
+#include <tf2/LinearMath/Matrix3x3.h>
+#include <tf2/impl/utils.h>
 
 using namespace std;
 using namespace chrono_literals;
@@ -26,7 +34,6 @@ class CarNode : public rclcpp::Node
                 markerD.header.frame_id = "map";
                 markerD.action = visualization_msgs::msg::Marker::DELETEALL;
 
-                auto message = visualization_msgs::msg::Marker();
                 visualization_msgs::msg::Marker marker;
                 marker.header.frame_id = "map";
                 marker.ns = "my_namespace";
@@ -43,33 +50,37 @@ class CarNode : public rclcpp::Node
                 marker.color.b = 1.0f;
                 marker.color.a = 1.0;
 
-                do {
+                geometry_msgs::msg::Pose2D pose2d;
+                pose2d.x = msg->poses.at(i).position.x;
+                pose2d.y = msg->poses.at(i).position.y;
 
-                    geometry_msgs::msg::Pose &pose = msg->poses.at(i);
-                    geometry_msgs::msg::Pose &pose_next = msg->poses.at(i+1);
-                    geometry_msgs::msg::Pose &new_pose = msg->poses.at(i);
-                    geometry_msgs::msg::Pose &new_pose_next = msg->poses.at(i+1);
+
+                do {
+                    auto p = msg->poses.at(i);
+                    double x = p.orientation.x;
+                    double y = p.orientation.y;
+                    double z = p.orientation.z;
+                    double w = p.orientation.w;
+                    double yaw = atan2(2.0f * (w * z + x * y), w * w + x * x - y * y - z * z);
+                    cout << "yaw: " << yaw*180 / M_PI << endl;
+
+                    double dx = cos(yaw)*2;
+                    double dy = sin(yaw)*2;
+
+                    p.position.x = dx + p.position.x;
+                    p.position.y = dy + p.position.y;
+
                     if(i==0){
-                        marker.pose = pose;
+                        marker.pose = p;
                         marker.pose.position.y = 2.0;
-                    }else{
-                        auto new_angle = atan2(new_pose_next.position.y - new_pose.position.y, new_pose_next.position.x - new_pose.position.x);
-                        double dx = cos(new_angle)*2;
-                        double dy = sin(new_angle)*2;
-                        new_pose.position.x = dx + pose.position.x;
-                        new_pose.position.y = dy + pose.position.y;
-                        marker.pose = new_pose;
-                    }
+                    }else
+                        marker.pose = p;
 
                     i++;
-                    message = marker;
-                    marker_publisher->publish(message);
+                    marker_publisher->publish(marker);
                     rclcpp::sleep_for(1s);
                     marker_publisher->publish(markerD);
-
-
-
-                }while(i < 180);
+                }while(i < 360);
 
             }
 
@@ -87,3 +98,28 @@ int main(int argc, char * argv[])
     return 0;
 }
 
+//geometry_msgs::msg::Pose2D pose2d;
+//                    auto const &my_pose = msg->poses.at(i);
+//                    auto const &my_next_pose = msg->poses.at(i);
+//                    auto marker_pose = my_pose;
+//                    auto angle = atan2(my_next_pose.position.y - my_pose.position.y, my_next_pose.position.x - my_pose.position.x);
+//                    if(i == 0){
+//                        marker.pose = marker_pose;
+//                        marker_pose.position.y = 2.0;
+//                    }else
+//                        marker.pose = marker_pose;
+//
+//
+//
+//                    double dx = cos(angle)*2;
+//                    double dy = sin(angle)*2;
+//
+//
+//                    marker_pose.position.x = dx + marker_pose.position.x;
+//                    marker_pose.position.y = dy + marker_pose.position.y;
+//                    marker.pose = marker_pose;
+//
+//                    i++;
+//                    marker_publisher->publish(marker);
+//                    rclcpp::sleep_for(1s);
+//                    marker_publisher->publish(markerD);
