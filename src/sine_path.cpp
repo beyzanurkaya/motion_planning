@@ -42,15 +42,6 @@ class SinePath : public rclcpp::Node
                     pose.orientation.w = q.w();
 
 
-
-
-                    //           tf2::Quaternion q;
-                    //           q.setRPY(0, 0, angle);
-                    //           pose.orientation.w = q.getW();
-                    //           pose.orientation.x = q.getX();
-                    //           pose.orientation.y = q.getY();
-                    //           pose.orientation.z = q.getZ();
-
                 }
                 message = poseArray;
                 poses_publisher->publish(message);

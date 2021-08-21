@@ -1,12 +1,4 @@
 #include "car.h"
-#include "tf2/LinearMath/Matrix3x3.h"
-#include <geometry_msgs/msg/pose2_d.hpp>
-#include <tf2/LinearMath/Quaternion.h>
-#include <Eigen/Geometry>
-#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
-#include <tf2_eigen/tf2_eigen.h>
-#include <tf2/LinearMath/Matrix3x3.h>
-#include <tf2/impl/utils.h>
 
 using namespace std;
 using namespace chrono_literals;
@@ -49,10 +41,6 @@ class CarNode : public rclcpp::Node
                 marker.color.g = 0.0f;
                 marker.color.b = 1.0f;
                 marker.color.a = 1.0;
-
-                geometry_msgs::msg::Pose2D pose2d;
-                pose2d.x = msg->poses.at(i).position.x;
-                pose2d.y = msg->poses.at(i).position.y;
 
 
                 do {
@@ -97,29 +85,3 @@ int main(int argc, char * argv[])
     rclcpp::shutdown();
     return 0;
 }
-
-//geometry_msgs::msg::Pose2D pose2d;
-//                    auto const &my_pose = msg->poses.at(i);
-//                    auto const &my_next_pose = msg->poses.at(i);
-//                    auto marker_pose = my_pose;
-//                    auto angle = atan2(my_next_pose.position.y - my_pose.position.y, my_next_pose.position.x - my_pose.position.x);
-//                    if(i == 0){
-//                        marker.pose = marker_pose;
-//                        marker_pose.position.y = 2.0;
-//                    }else
-//                        marker.pose = marker_pose;
-//
-//
-//
-//                    double dx = cos(angle)*2;
-//                    double dy = sin(angle)*2;
-//
-//
-//                    marker_pose.position.x = dx + marker_pose.position.x;
-//                    marker_pose.position.y = dy + marker_pose.position.y;
-//                    marker.pose = marker_pose;
-//
-//                    i++;
-//                    marker_publisher->publish(marker);
-//                    rclcpp::sleep_for(1s);
-//                    marker_publisher->publish(markerD);
