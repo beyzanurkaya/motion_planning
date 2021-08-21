@@ -10,7 +10,7 @@ class SinePath : public rclcpp::Node
             SinePath() : Node("sinePath"){
 
                 poses_publisher = this->create_publisher<geometry_msgs::msg::PoseArray>("sine_path", 10);
-                timer_ = this->create_wall_timer(500ms, std::bind(&SinePath::timer_callback, this));
+                timer = this->create_wall_timer(500ms, std::bind(&SinePath::timer_callback, this));
             }
 
         private:
@@ -48,7 +48,7 @@ class SinePath : public rclcpp::Node
 
             }
             rclcpp::Publisher<geometry_msgs::msg::PoseArray>::SharedPtr poses_publisher;
-            rclcpp::TimerBase::SharedPtr timer_;
+            rclcpp::TimerBase::SharedPtr timer;
         };
 
 int main(int argc, char * argv[])
