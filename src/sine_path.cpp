@@ -21,6 +21,7 @@ class SinePath : public rclcpp::Node
 
                 poseArray.header.frame_id = "map";
                 poseArray.header.stamp = this->now();
+
                 for(int i=0;i<=360;i++){
                     geometry_msgs::msg::Pose p;
                     p.position.x  = static_cast<float>(i);
@@ -41,12 +42,9 @@ class SinePath : public rclcpp::Node
                     pose.orientation.z = q.z();
                     pose.orientation.w = q.w();
 
-
                 }
                 message = poseArray;
                 poses_publisher->publish(message);
-
-
 
             }
             rclcpp::Publisher<geometry_msgs::msg::PoseArray>::SharedPtr poses_publisher;

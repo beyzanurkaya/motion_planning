@@ -13,7 +13,6 @@ public:
         poses_subscriber = this->create_subscription<geometry_msgs::msg::PoseArray>("sine_path" , 10, bind(&PointsNode::topic_callback, this, _1));
     }
 
-
 private:
     void topic_callback(const geometry_msgs::msg::PoseArray::SharedPtr msg) const
     {
@@ -36,8 +35,8 @@ private:
             marker.scale.y = 0.3;
             marker.scale.z = 0.3;
             marker.color.a = 1.0;
-            marker.color.r = 0.5;
-            marker.color.g = 1.0;
+            marker.color.r = 1.0;
+            marker.color.g = 0.0;
             marker.color.b = 0.0;
 
             geometry_msgs::msg::Pose p = msg->poses.at(i);

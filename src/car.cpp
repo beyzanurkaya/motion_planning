@@ -14,7 +14,6 @@ class CarNode : public rclcpp::Node
 
             }
 
-
         private:
 
             void topic_callback(const geometry_msgs::msg::PoseArray::SharedPtr msg) const
@@ -50,7 +49,6 @@ class CarNode : public rclcpp::Node
                     double z = p.orientation.z;
                     double w = p.orientation.w;
                     double yaw = atan2(2.0f * (w * z + x * y), w * w + x * x - y * y - z * z);
-                    cout << "yaw: " << yaw*180 / M_PI << endl;
 
                     double dx = cos(yaw)*2;
                     double dy = sin(yaw)*2;
