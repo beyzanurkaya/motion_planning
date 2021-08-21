@@ -8,11 +8,8 @@
 #include <memory>
 #include <chrono>
 #include "rclcpp/rclcpp.hpp"
-#include "geometry_msgs/msg/pose.hpp"
 #include "geometry_msgs/msg/pose_array.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
-#include "Eigen/Dense"
-#include <Eigen/Geometry>
 #include "tf2/LinearMath/Quaternion.h"
 
 

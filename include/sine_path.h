@@ -10,7 +10,6 @@
 #include "rclcpp/rclcpp.hpp"
 #include "geometry_msgs/msg/pose.hpp"
 #include "geometry_msgs/msg/pose_array.hpp"
-#include <geometry_msgs/msg/transform_stamped.hpp>
 #include "Eigen/Dense"
 #include <Eigen/Geometry>
 
