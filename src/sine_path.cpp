@@ -10,8 +10,6 @@ SinePath::SinePath() : Node("sinePath"){
 
 void SinePath::timer_callback()
 {
-    auto message = geometry_msgs::msg::PoseArray();
-
     poseArray.header.frame_id = "map";
     poseArray.header.stamp = this->now();
 
@@ -42,7 +40,7 @@ void SinePath::timer_callback()
 int main(int argc, char * argv[])
 {
     rclcpp::init(argc, argv);
-    rclcpp::spin(std::make_shared<SinePath>());
+    rclcpp::spin(make_shared<SinePath>());
     rclcpp::shutdown();
     return 0;
 }
