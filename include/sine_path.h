@@ -23,15 +23,13 @@ class SinePath : public rclcpp::Node
         {
         public:
 
-
             SinePath();
-
 
         private:
 
             /*!
              *  @brief poseArray is a variable of type PoseArray that is a member of geometry_msgs.
-             *    - what's inside
+             *    - what's inside?
              *         - poses
              *    - Why is this variable used?
              *         - this variable keeps inside poses of sine path
@@ -41,20 +39,20 @@ class SinePath : public rclcpp::Node
 
             /*!
              *  @brief p is a variable of type Pose that is a member of geometry_msgs.
-             *    - what's inside
+             *    - what's inside?
              *         - positions
              *              - x,y,z
              *         - orientations
              *              - x,y,z,w
              *    - Why is this variable used?
-             *         - this variable keeps inside positions and orientations of sine path
+             *         - this variable keeps positions and orientations of sine path
              */
 
             geometry_msgs::msg::Pose p;
 
             /*!
              *  @brief q is a variable of type Quaternionf that is a member of Eigen library.
-             *    - what's inside
+             *    - what's inside?
              *         - quaternions
              *              - x,y,z,w
              *    - Why is this variable used?
@@ -65,18 +63,18 @@ class SinePath : public rclcpp::Node
 
             Eigen::Quaternionf q;
 
-
             void timer_callback();
+
             /** @fn void SinePath::timer_callback()
              *  @brief The timer_callback function is where the message data is set and the messages are actually published.
              *      - timer is initialized, which causes the timer_callback function to be executed twice a second.
              */
 
             /**
-           *  @brief a publisher is a ROS node that publishes a specific type of ROS message over a given ROS topic. “Interested” nodes (Subscribers) can access messages so published.
+             *  @brief a publisher is a ROS node that publishes a specific type of ROS message over a given ROS topic. “Interested” nodes (Subscribers) can access messages so published.
                   - what is published?
-           *         - poses_publisher publishes a poseArray with positions and orientations specified.
-           */
+             *         - poses_publisher publishes a poseArray with positions and orientations specified.
+             */
 
             rclcpp::Publisher<geometry_msgs::msg::PoseArray>::SharedPtr poses_publisher;
 
