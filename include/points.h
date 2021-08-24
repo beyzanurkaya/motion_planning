@@ -10,10 +10,11 @@
 #include "geometry_msgs/msg/pose.hpp"
 #include "geometry_msgs/msg/pose_array.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
+
 using namespace std;
 using placeholders::_1;
 
-/*! This class contains a publisher named poses_publisher, a timer and a callback function named timer_callback() */
+/*! This class contains a publisher named markers_publisher, a subscriber named poses_subscriber and callback function named topic_callback() */
 
 class PointsNode : public rclcpp::Node
         {
