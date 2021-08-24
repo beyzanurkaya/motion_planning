@@ -42,6 +42,7 @@ qtcreator-*
 /planning/docs
 /planning/src
 /cmake-build-debug
+/docs
 
 *~
 
